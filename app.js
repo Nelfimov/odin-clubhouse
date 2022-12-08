@@ -4,11 +4,22 @@ import { join, dirname } from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import { fileURLToPath } from 'url';
+import mongoose, {connect} from 'mongoose';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 import indexRouter from './routes/index.js';
 import usersRouter from './routes/users.js';
 
 const app = express();
+
+// Database is set up
+connect(process.env.MONGODB_URL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error: '));
 
 // view engine setup
 const __filename = fileURLToPath(import.meta.url);
