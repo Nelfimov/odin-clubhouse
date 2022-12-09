@@ -1,5 +1,11 @@
 <%- include('../partials/header') %>
 
 <h1><%= title %></h1>
-
+<% if (locals.currentUser) { %>
+  <h2>Welcome back, <%= locals.currentUser.first_name %></h2>
+<% } else { %>
+  <h2>Please log in</h2>
+<% } %>
+<% if (locals.message) %>
+  <p><%= locals.message %></p>
 <%- include('../partials/footer') %>
