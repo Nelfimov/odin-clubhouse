@@ -1,9 +1,9 @@
 import createError from 'http-errors';
-import express, { json, urlencoded } from 'express';
-import { join, dirname } from 'path';
+import express, {json, urlencoded} from 'express';
+import {join, dirname} from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
-import { fileURLToPath } from 'url';
+import {fileURLToPath} from 'url';
 import mongoose, {connect} from 'mongoose';
 import * as dotenv from 'dotenv';
 dotenv.config();
@@ -50,7 +50,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('pages/error');
+  res.render('pages/error', { title: 'Error' });
 });
 
 export default app;

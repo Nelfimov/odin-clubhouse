@@ -16,10 +16,10 @@ router
       const {firstName, lastName, email} = req.body;
 
       const newUser = new User({
-        firstName,
-        lastName,
-        email,
-        hashedPassword,
+        first_name: firstName,
+        last_name: lastName,
+        email: email,
+        password: hashedPassword,
       }).save((err) => {
         if (err) return next(err);
 
