@@ -5,8 +5,6 @@ import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import {fileURLToPath} from 'url';
 import mongoose, {connect} from 'mongoose';
-import passport from 'passport';
-import LocalStrategy from 'passport-local';
 import session from 'express-session';
 import * as dotenv from 'dotenv';
 
@@ -14,7 +12,7 @@ dotenv.config();
 
 import indexRouter from './routes/index.js';
 import authRouter from './routes/auth.js';
-import User from './models/user.js';
+import passport from './passport/setup.js';
 
 const app = express();
 
@@ -36,54 +34,22 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(json());
 
-passport.use(
-  new LocalStrategy((email, password, done) => {
-    User.findOne({email: email}, (err, user) => {
-      if (err) return done(err);
-
-      if (!user) {
-        return done(null, false, {message: 'Incorrect email'})
-      };
-
-      bcrypt.compare(password, user.password, (err, res) => {
-        if (res) {
-          // passwords match! log user in
-          return done(null, user)
-        } else {
-          // passwords do not match!
-          return done(null, false, { message: "Incorrect password" })
-        }
-      });
-    })
-  })
-);
-
-passport.serializeUser(function(user, done) {
-  done(null, user.email);
-});
-
-passport.deserializeUser(function(email, done) {
-  User.findById(email, function(err, user) {
-    done(err, user);
-  });
-});
-
-app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
+app.use(session({ secret: "cats", resave: false, saveUninitialized: true, cookie: {secure: true} }));
 app.use(passport.initialize());
 app.use(passport.session());
-
 app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/auth', authRouter);
-
 // get current user
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
+  console.log(res.locals.currentUser);
   next();
 });
+
+app.use('/', indexRouter);
+app.use('/auth', authRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,7 +1,8 @@
 import {Router} from 'express';
 import bcrypt from 'bcryptjs';
+
 import User from '../models/user.js';
-import passport from 'passport';
+import passport from '../passport/setup.js';
 
 const router = Router();
 
@@ -34,7 +35,8 @@ router
     res.render('pages/login-form', {title: 'Log In'});
   })
   .post('/log-in', passport.authenticate(
-    'local', {successRedirect: '/', failureRedirect: '/'})
-  )
+      'local', {successRedirect: '/', failureRedirect: '/auth/log-in'}
+    )
+  );
 
 export default router;
