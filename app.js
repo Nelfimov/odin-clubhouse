@@ -35,14 +35,20 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(json());
 
-app.use(session({ secret: "cats", resave: false, saveUninitialized: true, cookie: {secure: false} }));
+app.use(session({
+  secret: 'cats',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {secure: false},
+}));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(urlencoded({ extended: false }));
+app.use(urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(join(__dirname, 'public')));
 app.use(flash());
 
+// custom middleware
 // get current user
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
@@ -65,7 +71,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('pages/error', { title: 'Error' });
+  res.render('pages/error', {title: 'Error'});
 });
 
 export default app;

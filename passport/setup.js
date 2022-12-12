@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 import passport from 'passport';
-import { Strategy as LocalStrategy } from 'passport-local';
+import {Strategy as LocalStrategy} from 'passport-local';
 
 import User from '../models/user.js';
 
@@ -15,26 +15,28 @@ customPassport.deserializeUser((id, done) => {
 });
 
 customPassport.use(
-  new LocalStrategy({usernameField: 'email', session: false}, (email, password, done) => {
-    User.findOne({email: email},
-      (err, user) => {
-        if (err) return done(err);
-        
-        if (!user) {
-          return done(null, false, { message: 'Incorrect email' })
-        };
-        
-        bcrypt.compare(password, user.password, (err, res) => {
-          if (err) throw err;
+    new LocalStrategy(
+        {usernameField: 'email', session: false},
+        (email, password, done) => {
+          User.findOne({email: email},
+              (err, user) => {
+                if (err) return done(err);
 
-          if (res) {
-            return done(null, user)
-          } else {
-            return done(null, false, { message: "Incorrect password" })
-          };
-        });
-      })
-  })
+                if (!user) {
+                  return done(null, false, {message: 'Incorrect email'});
+                };
+
+                bcrypt.compare(password, user.password, (err, res) => {
+                  if (err) throw err;
+
+                  if (res) {
+                    return done(null, user);
+                  } else {
+                    return done(null, false, {message: 'Incorrect password'});
+                  };
+                });
+              });
+        }),
 );
 
 export default customPassport;
