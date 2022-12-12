@@ -8,8 +8,8 @@
 function userIsAuthorized(req, res, next) {
   if (req.user) return next();
 
-  req.flash('error', 'You are not authrized for this view');
-  res.redirect('/');
+  req.flash('error', 'You are not authorized for this view');
+  res.redirect('/auth/log-in');
 };
 
 /**
@@ -22,7 +22,7 @@ function userIsAuthorized(req, res, next) {
 function userIsAnon(req, res, next) {
   if (!req.user) return next();
 
-  req.flash('error', 'You are already authrized');
+  req.flash('error', 'You are already authorized');
   res.redirect('/');
 };
 
