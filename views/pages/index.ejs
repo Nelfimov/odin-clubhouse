@@ -2,9 +2,27 @@
 
 <h1><%= title %></h1>
 <% if (currentUser) { %>
-<h2>Welcome back, <%= currentUser.email %></h2>
+<h2>Welcome back, <%= currentUser.first_name %></h2>
 <% } else { %>
 <h2>Please log in</h2>
+<% } %>
+
+<% if (allMessages) { %>
+<div class="message-container">
+  <% allMessages.forEach(message => { %>
+  <div class="card">
+    <p><%= message.text %></p>
+    <div class="details">
+      <% if (currentUser) { %>
+      <span><%= message.author.email %></span>
+      <% } else { %>
+      <span>Secret</span>
+      <% } %>
+      <span><%= new Date(message.time_stamp).toDateString() %></span>
+    </div>
+  </div>
+  <% }) %>
+</div>
 <% } %>
 
 <%- include('../partials/footer') %>
