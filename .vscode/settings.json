@@ -1,0 +1,5 @@
+{
+  "eslint.lintTask.enable": true,
+  "html.format.indentInnerHtml": true,
+  "html.format.templating": true,
+}

@@ -1,8 +1,8 @@
-import { Router } from 'express';
-const router = Router();
+import {router} from 'express';
+const customRouter = router();
 
-router.get('/', function(req, res, next) {
-  res.render('pages/index', { title: 'Main' });
+customRouter.get('/', function(req, res, next) {
+  res.render('pages/index', {title: 'Main'});
 });
 
 export default router;

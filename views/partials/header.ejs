@@ -4,11 +4,23 @@
   <span>Clubhouse, invites only</span>
   <div class="nav-links">
     <a class="nav" href="/">Home</a>
-    <a class="nav" href="/items/new">New</a>
     <div class="dropdown">
       <ul>
-        <li><a href="/auth/sign-up">Sign Up</a></li>
-        <li><a href="/auth/log-in">Log In</a></li>
+        <% if (currentUser) { %>
+
+          <li><%= currentUser.email %></li>
+          
+          <% if (currentUser.status) { %>
+            <li><a href="/message/new">New message</a></li>
+          <% } else { %>
+            <li><a href="/auth/confirm">Confirm your status</a></li>
+          <% } %>
+
+        <% } else { %> 
+          <li><a href="/auth/sign-up">Sign Up</a></li>
+          <li><a href="/auth/log-in">Log In</a></li>
+        <% } %>
+
       </ul>
     </div>
   </div>

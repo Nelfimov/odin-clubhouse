@@ -38,4 +38,25 @@ router
       passport.authenticate('local', {failureRedirect: '/auth/log-in', successRedirect: '/', failureFlash: true})
   );
 
+router
+  .get('/confirm', (req, res, next) => {
+    res.render('pages/secret', {title: 'Enter your passcode to confirm membership'});
+  })
+  .post('/confirm', (req, res, next) => {
+    User.findById(req.user.id, (err, user) => {
+      if (err) return next(err);
+
+      if (req.body.passcode === process.env.PASSCODE) {
+        user.status = true;
+        user.save();
+
+        req.flash('info', 'Success!')
+        return res.redirect('/');
+      }
+
+      req.flash('error', 'Passcode is wrong');
+      res.redirect('/auth/confirm');
+    })
+  });
+
 export default router;
