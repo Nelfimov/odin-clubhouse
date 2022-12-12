@@ -13,7 +13,7 @@ function userIsAuthorized(req, res, next) {
 };
 
 /**
- *
+ * Check if user is unauthorized
  * @param {Object} req - request
  * @param {Object} res - response
  * @param {Function} next - callback to proceed
@@ -26,4 +26,25 @@ function userIsAnon(req, res, next) {
   res.redirect('/');
 };
 
-export {userIsAuthorized, userIsAnon};
+/**
+ * Check if user is authorized and a member of the club
+ * @param {Object} req - request
+ * @param {Object} res - response
+ * @param {Function} next - callback
+ * @return {any}
+ */
+function userIsMember(req, res, next) {
+  if (!req.user) {
+    req.flash('error', 'You have to be authorized');
+    return res.redirect('/auth/log-in');
+  };
+
+  if (!req.user.status) {
+    req.flash('error', 'You have to be a member to access');
+    return res.redirect('/auth/confirm');
+  };
+
+  return next();
+}
+
+export {userIsAuthorized, userIsAnon, userIsMember};

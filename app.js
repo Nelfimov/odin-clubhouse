@@ -13,6 +13,7 @@ dotenv.config();
 
 import indexRouter from './routes/index.js';
 import authRouter from './routes/auth.js';
+import messageRouter from './routes/message.js';
 import passport from './passport/setup.js';
 
 const app = express();
@@ -57,6 +58,7 @@ app.use((req, res, next) => {
 
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
+app.use('/message', messageRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

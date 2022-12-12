@@ -1,0 +1,14 @@
+<% if (messages) { %>
+<div class="notification">
+  <% if (messages.error) { %>
+  <div class="error">
+    <span><%= messages.error %></span>
+  </div>
+  <% } %>
+  <% if (messages.info) { %>
+  <div class="info">
+    <span><%= messages.info %></span>
+  </div>
+  <% } %>
+</div>
+<% } %>
