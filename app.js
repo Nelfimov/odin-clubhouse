@@ -6,6 +6,7 @@ import logger from 'morgan';
 import {fileURLToPath} from 'url';
 import mongoose, {connect} from 'mongoose';
 import session from 'express-session';
+import flash from 'express-flash';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
@@ -34,17 +35,17 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(json());
 
-app.use(session({ secret: "cats", resave: false, saveUninitialized: true, cookie: {secure: true} }));
+app.use(session({ secret: "cats", resave: false, saveUninitialized: true, cookie: {secure: false} }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(join(__dirname, 'public')));
+app.use(flash());
 
 // get current user
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
-  console.log(res.locals.currentUser);
   next();
 });
 

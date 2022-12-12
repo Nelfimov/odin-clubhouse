@@ -34,9 +34,8 @@ router
   .get('/log-in', (req, res, next) => {
     res.render('pages/login-form', {title: 'Log In'});
   })
-  .post('/log-in', passport.authenticate(
-      'local', {successRedirect: '/', failureRedirect: '/auth/log-in'}
-    )
+  .post('/log-in',
+      passport.authenticate('local', {failureRedirect: '/auth/log-in', successRedirect: '/', failureFlash: true})
   );
 
 export default router;
