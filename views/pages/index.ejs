@@ -4,11 +4,11 @@
 <% if (currentUser) { %>
 <h2>Welcome back, <%= currentUser.first_name %></h2>
 <% } else { %>
-<h2>Please log in</h2>
+<h2>To see message authors and dates, please sign up or log in</h2>
 <% } %>
 
 <% if (allMessages) { %>
-<div class="message-container">
+<div class="card-container">
   <% allMessages.forEach(message => { %>
   <div class="card">
     <p><%= message.text %></p>

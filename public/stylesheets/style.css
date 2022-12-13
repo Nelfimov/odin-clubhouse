@@ -1,5 +1,107 @@
+:root {
+  --color-background: rgb(116, 217, 247);
+  --color-active: rgb(45, 206, 255);
+  --color-text-white: rgb(245, 245, 245);
+}
+
+ul {
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
 body {
   padding: 0;
   margin: 0;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  display: grid;
+  grid-template-rows: min-content 1fr min-content;
+  justify-content: center;
+}
+
+header,
+main,
+footer {
+  max-width: 75rem;
+  width: 100vw;
+  margin-inline: auto;
+}
+
+header,
+footer {
+  background-color: var(--color-background);
+  padding: 1.5rem;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+}
+
+a.nav,
+a.nav:visited {
+  text-decoration: none;
+  color: rgb(26, 26, 26);
+  padding: 1rem;
+}
+
+a.nav:hover {
+  background-color: var(--color-active);
+}
+
+header span.logo {
+  font-size: 2rem;
+  font-weight: 900;
+}
+
+main {
+  padding-top: 90px;
+  min-height: 80vh;
+  max-width: 70rem;
+}
+
+main .card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+main .card {
+  border: 1px solid grey;
+  border-radius: 5px;
+  box-shadow: 1px 1px 1px 1px grey;
+  padding: .5rem;
+  min-height: 100px;
+}
+
+main form {
+  display: grid;
+  justify-content: start;
+  gap: 20px;
+}
+
+button {
+  background-color: var(--color-active);
+  padding: 1rem 2rem;
+  outline: none;
+  border: 0;
+  border-radius: 5px;
+  color: var(--color-text-white);
+  font-weight: bold;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

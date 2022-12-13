@@ -1,28 +1,22 @@
 <%- include('../base') -%>
 
 <header>
-  <span>Clubhouse, invites only</span>
+  <span class="logo">CLUBHOUSE, invites only</span>
   <div class="nav-links">
     <a class="nav" href="/">Home</a>
-    <div class="dropdown">
-      <ul>
-        <% if (currentUser) { %>
+    <% if (currentUser) { %>
+    <%= currentUser.email %>
+    <% if (currentUser.status) { %>
+    <a class="nav" href="/message/new">New message</a>
+    <% } else { %>
+    <a class="nav" href="/auth/confirm">Confirm your status</a>
+    <% } %>
+    <a class="nav" href="/auth/log-out">Log Out</a>
+    <% } else { %>
+    <a class="nav" href="/auth/sign-up">Sign Up</a>
+    <a class="nav" href="/auth/log-in">Log In</a>
+    <% } %>
 
-        <li><%= currentUser.email %></li>
-
-        <% if (currentUser.status) { %>
-        <li><a href="/message/new">New message</a></li>
-        <% } else { %>
-        <li><a href="/auth/confirm">Confirm your status</a></li>
-        <% } %>
-        <li><a href="/auth/log-out">Log Out</a></li>
-        <% } else { %>
-        <li><a href="/auth/sign-up">Sign Up</a></li>
-        <li><a href="/auth/log-in">Log In</a></li>
-        <% } %>
-
-      </ul>
-    </div>
   </div>
 </header>
 
