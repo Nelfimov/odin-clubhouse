@@ -68,6 +68,15 @@ customRouter
           return res.redirect('/');
         }
 
+        if (req.body.passcode === process.env.PASSCODE_ADMIN) {
+          user.status = true;
+          user.isAdmin = true;
+          user.save();
+
+          req.flash('info', 'Success!');
+          return res.redirect('/');
+        }
+
         req.flash('error', 'Passcode is wrong');
         res.redirect('/auth/confirm');
       });

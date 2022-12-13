@@ -14,11 +14,16 @@
     <p><%= message.text %></p>
     <div class="details">
       <% if (currentUser) { %>
+      <% if (message.author) { %>
       <span><%= message.author.email %></span>
       <% } else { %>
-      <span>Secret</span>
+      <span>Unknown</span>
+      <% } %>
+      <% if (currentUser.isAdmin) { %>
+      <a href="/message/delete:<%=message._id%>">Delete</a>
       <% } %>
       <span><%= new Date(message.time_stamp).toDateString() %></span>
+      <% } %>
     </div>
   </div>
   <% }) %>

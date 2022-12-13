@@ -21,4 +21,10 @@ customRouter
       });
     });
 
+customRouter.get('/delete:id', (req, res, next) => {
+  Message.deleteOne({id: req.params.id})
+      .then(() => res.redirect('/'))
+      .catch((err) => next(err));
+});
+
 export default customRouter;
